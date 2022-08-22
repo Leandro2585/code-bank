@@ -9,6 +9,7 @@ import (
 
 type TransactionFeature struct {
 	TransactionRepository domain.TransactionRepository
+	KafkaProducer kafka.KafkaProducer
 }
 
 func NewTransactionFeature(transactionRepository domain.TransactionRepository) TransactionFeature {
@@ -28,6 +29,17 @@ func (f TransactionFeature) ProcessTransaction(transactionDTO dto.Transaction) (
 	t.ProcessAndValidate(creditCard)
 
 	err = f.TransactionRepository.SaveTransaction(*t, *creditCard)
+	if err != nil {
+		return domain.Transaction{}, err
+	}
+
+	transactionDTO.ID = t.ID
+	transactionDTO.CreatedAt = t.CreatedAt
+	transactionJSON, err := json.Marshal(transactionDTO)
+	if err != nil {
+		return domain.Transaction{}, err
+	}
+	err = f.KafkaProducer.Publish(string(transactionJSON), "payments")
 	if err != nil {
 		return domain.Transaction{}, err
 	}
