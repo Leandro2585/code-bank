@@ -1,4 +1,4 @@
-module github.com/leandro2585/codebank
+module github.com/leandro2585/code-bank
 
 go 1.19
 

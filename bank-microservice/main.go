@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/leandro2585/codebank/feature"
-	"github.com/leandro2585/codebank/infra/repository"
+	"github.com/leandro2585/code-bank/feature"
+	"github.com/leandro2585/code-bank/infra/repository"
 )
 
 func main() {

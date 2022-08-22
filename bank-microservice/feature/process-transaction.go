@@ -3,8 +3,8 @@ package feature
 import (
 	"time"
 
-	"github.com/leandro2585/codebank/domain"
-	"github.com/leandro2585/codebank/dto"
+	"github.com/leandro2585/code-bank/domain"
+	"github.com/leandro2585/code-bank/dto"
 )
 
 type TransactionFeature struct {
